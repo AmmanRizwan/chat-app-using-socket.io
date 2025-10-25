@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-interface IMessage {
+export interface IMessage {
   room: string;
   name: string;
   context: string;

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setChat } from "../../../redux/chat";
 import { appendMessage } from "../../../redux/messages";
 import { socket } from "../../socket";
+import type { IMessage } from "../../../redux/messages";
 
 const Chat = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -33,15 +34,29 @@ const Chat = () => {
     })
   }, [socket]);
 
-  console.log(chats);
+  // Style
 
-  console.log()
+  const noMargin = { margin: "0px", fontSize: "13px"};
 
   return (
     <div>
       <div>
         <input type="text" placeholder="Enter Your Message" value={message} onChange={(e) => dispatch(setChat({message: e.target.value}))} />
         <button onClick={() => sendMessage()}>Send Message</button>
+      </div>
+
+      <p>Chat Room:</p>
+
+      <div>
+        {
+          chats.map((chat: IMessage, index: number) => {
+            return (
+              <div key={index}>
+                <p style={noMargin}><strong>Name:</strong> {chat.name}, <strong>Message:</strong> {chat.context}, <strong>Time:</strong> {chat.timestamp}</p>
+              </div>
+            )
+          } )
+        }
       </div>
     </div>
   )
