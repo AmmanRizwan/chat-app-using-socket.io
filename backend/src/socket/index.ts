@@ -20,8 +20,7 @@ const SocketServer = () => {
 
     socket.on("send_message", (data) => {
       console.log(data);
-      const { roomConfig, message, timestamp } = data; 
-      socket.to(roomConfig.room).emit("receive_message", {name: roomConfig.name, message: message, timestamp: timestamp});
+      socket.to(data.room).emit("receive_message", {room: data.room, name: data.name, context: data.message, timestamp: data.timestamp});
     })
 
     socket.on("disconnect", () => {
